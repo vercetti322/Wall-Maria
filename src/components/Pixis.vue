@@ -72,15 +72,14 @@ onMounted(() => {
 
   .pixis {
     position: relative;
-    opacity: 0;
-    transition: opacity 1s, width 0.5s; /* Add transition for opacity and width */
+    opacity: 1;
+    transition: width 0.5s; /* Add transition for opacity and width */
     width: 100px;
     display: flex;
     padding: 10px;
     background-color: transparent;
     border: none;
     border-radius: 5px;
-    animation: fadeIn 1s ease-in-out forwards;
     animation-delay: 0.5s;
     margin-left: 65px;
   }

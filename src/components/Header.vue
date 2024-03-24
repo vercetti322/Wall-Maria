@@ -62,7 +62,6 @@
     font-weight: 400;
     margin-top: 15px;
     font-size: 22px;
-    border: 2px solid rgb(19, 11, 2);
     border-radius: 5px;
     background-color: #C19A6B;
     padding: 6px;

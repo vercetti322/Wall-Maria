@@ -1,12 +1,9 @@
-<script setup>
-  // header is sorted
-  import Header from './components/Header.vue';
-</script>
+
 
 <template>
   <Header/>
   <div class="pixis">
-      <img src="./assets/pixis-logo.jpg">
+      <img src="../assets/pixis-logo.jpg">
       <p id="pixis-intro">Lorem ipsum do
         lor, sit amet consectetur adipis
         icing elit. Nesciunt hic nam ani

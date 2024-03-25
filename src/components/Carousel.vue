@@ -62,11 +62,10 @@
     width: 600px; /* Adjust width as needed */
     overflow: hidden;
     position: relative;
-    height: 350px;
+    height: 320px;
     margin: 0 auto; /* Center horizontally */
     margin-bottom: 30px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(121, 74, 20, 0.75);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
   
   .carousel-inner {
@@ -86,7 +85,7 @@
   }
 
   .carousel-item img:active {
-    opacity: 0.6;
+    opacity: 0.75;
   }
   
   .carousel-dots {
@@ -98,18 +97,16 @@
   }
   
   .carousel-dots span {
-    width: 10px;
-    height: 10px;
-    background-color: #cccccc69;
-    border: 1px solid rgba(0, 0, 0, 0.577);
+    width: 8px;
+    height: 8px;
+    background-color: #A9A9A9;
     border-radius: 50%;
     margin: 0 5px;
     cursor: pointer;
   }
   
   .carousel-dots span.active {
-    background-color: rgb(83, 53, 6);
-    border: 1px solid rgba(0, 0, 0, 0.577);
+    background-color: #71797E;
   }
   </style>
   

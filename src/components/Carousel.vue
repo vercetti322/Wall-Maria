@@ -65,7 +65,7 @@
     height: 320px;
     margin: 0 auto; /* Center horizontally */
     margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
   
   .carousel-inner {
@@ -88,7 +88,7 @@
   }
 
   .carousel-item img:active {
-    opacity: 0.75;
+    opacity: 0.5;
   }
   
   .carousel-dots {

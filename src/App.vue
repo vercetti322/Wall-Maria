@@ -1,6 +1,6 @@
 <script setup>
   import Div1 from './components/KPS.vue'
-  import Div2 from './components/Div2.vue';
+  import Div2 from './components/JV.vue';
 </script>
 
 <template>

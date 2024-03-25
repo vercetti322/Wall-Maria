@@ -6,10 +6,12 @@
 
 <script setup>
     import Carousel from './Carousel.vue';
+    import jvSlide1 from '../assets/jv-slide-1.png';
+    import jvSlide2 from '../assets/jv-slide-2.png';
 
     const carouselImages = [
-        'https://via.placeholder.com/600x400?text=Slide+1',
-        'https://via.placeholder.com/600x400?text=Slide+2'
+        jvSlide1,
+        jvSlide2
     ]
 
     const handleImageClick = (imageUrl) => {

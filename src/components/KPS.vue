@@ -6,10 +6,12 @@
 
 <script setup>
     import Carousel from './Carousel.vue';
+    import kpsSlide1 from '../assets/kps-slide-1.png';
+    import kpsSlide2 from '../assets/kps-slide-2.png';
 
     const carouselImages = [
-        'https://via.placeholder.com/600x400?text=Slide+1',
-        'https://via.placeholder.com/600x400?text=Slide+2'
+        kpsSlide1,
+        kpsSlide2
     ]
 
     const handleImageClick = (imageUrl) => {

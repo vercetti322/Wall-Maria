@@ -65,16 +65,18 @@
     height: 320px;
     margin: 0 auto; /* Center horizontally */
     margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
   
   .carousel-inner {
     display: flex;
     transition: transform 0.5s ease;
+    height: 100%;
   }
   
   .carousel-item {
     flex: 0 0 auto;
+    height: 100%;
   }
   
   .carousel-item img {
@@ -82,6 +84,7 @@
     height: 100%;
     display: block;
     cursor: pointer;
+    object-fit: cover;
   }
 
   .carousel-item img:active {

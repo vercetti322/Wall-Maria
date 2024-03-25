@@ -65,7 +65,8 @@
     height: 350px;
     margin: 0 auto; /* Center horizontally */
     margin-bottom: 30px;
-    border-radius: 5px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(121, 74, 20, 0.75);
 }
   
   .carousel-inner {
@@ -79,6 +80,7 @@
   
   .carousel-item img {
     width: 100%;
+    height: 100%;
     display: block;
     cursor: pointer;
   }

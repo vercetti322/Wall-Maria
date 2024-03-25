@@ -8,7 +8,7 @@
     import Carousel from './Carousel.vue';
 
     const carouselImages = [
-        'https://via.placeholder.com/600x400?text=Slide+1',
+        'https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&w=600',
         'https://via.placeholder.com/600x400?text=Slide+2'
     ]
 

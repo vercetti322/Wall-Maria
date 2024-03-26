@@ -1,42 +1,48 @@
 <template>
     <div>
-        <Carousel :images="carouselImages" @imageClick="handleImageClick"/>
-        <div v-if="showModal" class="modal-overlay">
-          <div class="modal-content">
-            <button @click="showModal = false">x</button>
-            <div class="canvas-container">
-              <Canvas :numPoints="numPoints" @updatePoints="updateNumPoints" />
-            </div>
-            <RangeBar class="rangebar" :numPoints="numPoints" @updatePoints="updateNumPoints" />
+      <Carousel :images="carouselImages" @imageClick="handleImageClick"/>
+      <div v-if="showModal" class="modal-overlay">
+        <div class="modal-content">
+          <button @click="showModal = false">x</button>
+          <div class="canvas-container">
+            <Canvas :numPoints="numPoints" @updatePoints="updateNumPoints" />
+          </div>
+          <RangeBar class="rangebar" :numPoints="numPoints" @updatePoints="updateNumPoints" />
+          <div class="algo">
+            <h1>Hi</h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi nostrum repellendus eaque dolore nam quibusdam. Ipsum esse quidem voluptatem modi atque delectus blanditiis, qui sint commodi amet nulla! Aliquam, quidem.</p>
+            <button>Next</button>
           </div>
         </div>
       </div>
+    </div>
   </template>
-
-<script setup>
-    import {ref} from "vue";
-    import Canvas from './Canvas.vue';
-    import RangeBar from './RangeBar.vue';
-    import Carousel from './Carousel.vue';
-    import jvSlide1 from '../assets/jv-slide-1.png';
-    import jvSlide2 from '../assets/jv-slide-2.png';
-
-    const carouselImages = [
-        jvSlide1,
-        jvSlide2
-    ]
-
-    const showModal = ref(false);
-    const numPoints = ref(10);
-
-    const handleImageClick = () => {
-        showModal.value = true;
-    }
-
-    const updateNumPoints = (newNumPoints) => {
+  
+  <script setup>
+  import { ref } from "vue";
+  import Canvas from './Canvas.vue';
+  import Carousel from './Carousel.vue';
+  import RangeBar from './RangeBar.vue';
+  import jvSlide1 from '../assets/jv-slide-1.png';
+  import jvSlide2 from '../assets/jv-slide-2.png';
+  
+  const carouselImages = [
+    jvSlide1,
+    jvSlide2
+  ];
+  
+  const showModal = ref(false);
+  const numPoints = ref(10);
+  
+  const handleImageClick = () => {
+    showModal.value = true;
+  };
+  
+  
+  const updateNumPoints = (newNumPoints) => {
     numPoints.value = newNumPoints;
   };
-</script>
+  </script>
 
 <style scoped>
 .modal-overlay {
@@ -69,6 +75,30 @@
     overflow: auto; /* Allow scrolling if content exceeds modal size */
 }
 
+.modal-content .algo p {
+  max-width: 250px;
+  left: 0;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.modal-content .algo {
+  padding: 10px;
+}
+
+.modal-content .algo h1 {
+  margin-left: 10px;
+}
+
+.modal-content .algo button {
+  margin-top: 250px;
+  margin-right: 258px;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
 .modal-content button {
     position: absolute;
     top: 17.5px;
@@ -91,5 +121,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    margin-right: 40px;
 }
 </style>

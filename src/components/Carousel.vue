@@ -53,6 +53,7 @@
   };
 
   const handleClick = (index) => {
+    currentIndex.value = index;
     emits('imageClick', props.images[index]);
   }
   </script>

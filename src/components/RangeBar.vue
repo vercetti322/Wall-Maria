@@ -5,7 +5,7 @@
     </div>
   </template>
   
-  <script setup>
+<script setup>
 import { ref, watch, defineEmits } from 'vue';
 
 const stopPoints = [1, 10, 100, 1000];
@@ -16,8 +16,8 @@ const emit = defineEmits(['updatePoints']);
 
 
 watch(selectedValue, (newVal) => {
-  numPoints.value = newVal; 
-  emit('updatePoints', newVal); 
+  numPoints.value = parseInt(newVal); 
+  emit('updatePoints', numPoints.value); 
 });
 
 watch(selectedValue, (newVal) => {

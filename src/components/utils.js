@@ -148,10 +148,9 @@ export function findUpperBridge(S, a) {
         }
     }
 
+    
     // Remove pairs marked for removal
     pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] && p[1] === pair[1]));
-    console.log("hi");
-    return [1,2];
     
     // Step 4: Determine the median of slopes
     let k = median(slopes);
@@ -169,7 +168,6 @@ export function findUpperBridge(S, a) {
             LARGE.push(pairs[i]);
         }
     }
-
     
     // Step 6: Find points on the supporting line with slope K
     let MAX = []; // Points on the supporting line
@@ -185,6 +183,9 @@ export function findUpperBridge(S, a) {
             maxYK = yOnLine; // Update the maximum y-coordinate
         }
     }
+
+    console.log(MAX)
+    return [1,2];
 
     // Find the point with minimum x-coordinate in MAX
     let pk = MAX.reduce((minPoint, point) => (point.x < minPoint.x) ? point : minPoint, MAX[0]);

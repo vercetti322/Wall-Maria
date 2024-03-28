@@ -5,9 +5,9 @@
       <div class="modal-content">
         <button id="cross" @click="showModal = false">x</button>
         <div class="canvas-container">
-          <Canvas :numPoints="numPoints" ref="canvasRef" @updatePoints="updateNumPoints" />
+          <Canvas :numPoints.number="numPoints" ref="canvasRef" @updatePoints="updateNumPoints" />
         </div>
-        <RangeBar class="rangebar" :numPoints="numPoints" @updatePoints="updateNumPoints" />
+        <RangeBar class="rangebar" :numPoints.number="numPoints" @updatePoints="updateNumPoints" />
       </div>
     </div>
   </div>

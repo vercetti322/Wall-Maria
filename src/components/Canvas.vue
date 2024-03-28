@@ -44,6 +44,9 @@ const setup = () => {
   emit('updatePoints', points.value.length);
 };
 
+let upperBridgeCalculated = false;
+let upperBridgePoints;
+
 const draw = () => {
 
   if (clicked.value == 0) {
@@ -71,26 +74,27 @@ const draw = () => {
     }
     const [xmin, xmax] = highlightExtremePoints(pInstance, leftMost, rightMost);
     const median = getMedianOfMedians(points.value);
-    drawVerticalLineThroughMedian(pInstance, median.value)
+    drawVerticalLineThroughMedian(pInstance, median)
 
-    // Draw vertical line passing through the median
-    drawVerticalLineThroughMedian(pInstance, median);
   } else if (clicked.value == 3) {
-    pInstance.background(220);
-    for (const pt of points.value) {
-      pInstance.stroke(0);
-      pInstance.strokeWeight(1.5);
-      pInstance.point(pt.x, pt.y);
-    }
-    const [xmin, xmax] = highlightExtremePoints(pInstance, leftMost, rightMost);
-    const median = getMedianOfMedians(points.value, pInstance);
+    if (!upperBridgeCalculated) {
+      pInstance.background(220);
+      for (const pt of points.value) {
+        pInstance.stroke(0);
+        pInstance.strokeWeight(1.5);
+        pInstance.point(pt.x, pt.y);
+      }
+      const [xmin, xmax] = highlightExtremePoints(pInstance, leftMost, rightMost);
+      const median = getMedianOfMedians(points.value);
+      drawVerticalLineThroughMedian(pInstance, median)
 
-    const upperBridgePoints = findUpperBridge(points.value, median);
+      upperBridgePoints = findUpperBridge(points.value, median);
+      upperBridgeCalculated = true;
+    }
 
     // Draw the upper bridge line using p5.js line function
     pInstance.strokeWeight(2);
     pInstance.stroke(0, 255, 0); // Green color
-    console.log(upperBridgePoints);
     pInstance.line(upperBridgePoints[0].x, upperBridgePoints[0].y, upperBridgePoints[1].x, upperBridgePoints[1].y);
   }
   

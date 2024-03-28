@@ -150,6 +150,8 @@ export function findUpperBridge(S, a) {
 
     // Remove pairs marked for removal
     pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] && p[1] === pair[1]));
+    console.log("hi");
+    return [1,2];
     
     // Step 4: Determine the median of slopes
     let k = median(slopes);
@@ -218,25 +220,32 @@ export function findUpperBridge(S, a) {
 }
 
 
-// Function to find median of an array
+// Function to find median of an array using Quick Select algorithm
 function median(arr, tolerance = 1e-10) {
-    if (arr.length <= 5) {
+    const n = arr.length;
+    const k = Math.floor(n / 2);
+
+    if (n <= 5) {
         arr.sort((a, b) => a - b);
-        return arr[Math.floor(arr.length / 2)];
+        return arr[k];
     }
 
-    // Step 1: Divide arr into groups of 5
-    let groups = [];
-    for (let i = 0; i < arr.length; i += 5) {
-        groups.push(arr.slice(i, i + 5));
+    // Select a pivot element randomly
+    const pivot = arr[Math.floor(Math.random() * n)];
+
+    // Partition the array into two sub-arrays
+    const left = arr.filter(num => num < pivot);
+    const right = arr.filter(num => num > pivot);
+    const equals = arr.filter(num => num === pivot);
+
+    if (k < left.length) {
+        // Recursively apply Quick Select to the left sub-array
+        return median(left, tolerance);
+    } else if (k < left.length + equals.length) {
+        // If the pivot index is the desired index, return the pivot element
+        return pivot;
+    } else {
+        // Recursively apply Quick Select to the right sub-array
+        return median(right, tolerance);
     }
-
-    // Step 2: Sort each group and find its median
-    let medians = groups.map(group => {
-        group.sort((a, b) => a - b);
-        return group[Math.floor(group.length / 2)];
-    });
-
-    // Step 3: Recursively find the median of the medians
-    return median(medians, tolerance);
 }

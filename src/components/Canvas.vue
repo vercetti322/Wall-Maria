@@ -1,12 +1,12 @@
 <template>
   <div ref="canvasContainer" class="canvas-container"></div>
-  <button @click="clicked = !clicked">next</button>
+  <button @click="clicked++"><b>{{names[clicked]}}</b></button>
 </template>
 
 <script setup>
 import { ref, onMounted, watch, defineProps, defineEmits } from 'vue';
 import p5 from 'p5';
-import { generateRandomPoints, getExtremePoints, highlightExtremePoints } from './utils.js';
+import { generateRandomPoints, getExtremePoints, highlightExtremePoints, getMedianOfMedians, drawVerticalLineThroughMedian, findUpperBridge  } from './utils.js';
 
 const props = defineProps({
   numPoints: {
@@ -19,7 +19,9 @@ const canvasContainer = ref(null);
 let sketch;
 const points = ref([]);
 const emit = defineEmits(['updatePoints']);
-const clicked = ref(false);
+const clicked = ref(0);
+const names = ref(['get extreme points', 'get median line', 'get upper bridge', 'recurse through for other bridges']);
+
 
 let pInstance = null;
 let leftMost, rightMost;
@@ -44,21 +46,52 @@ const setup = () => {
 
 const draw = () => {
 
-  if (clicked.value) {
+  if (clicked.value == 0) {
     pInstance.background(220);
     for (const pt of points.value) {
       pInstance.stroke(0);
       pInstance.strokeWeight(1.5);
       pInstance.point(pt.x, pt.y);
     }
-    highlightExtremePoints(pInstance, leftMost, rightMost);
-  } else {
+    
+  } else if (clicked.value == 1) {
     pInstance.background(220);
     for (const pt of points.value) {
       pInstance.stroke(0);
       pInstance.strokeWeight(1.5);
       pInstance.point(pt.x, pt.y);
     }
+    const [xmin, xmax] = highlightExtremePoints(pInstance, leftMost, rightMost);
+  } else if (clicked.value == 2) {
+    pInstance.background(220);
+    for (const pt of points.value) {
+      pInstance.stroke(0);
+      pInstance.strokeWeight(1.5);
+      pInstance.point(pt.x, pt.y);
+    }
+    const [xmin, xmax] = highlightExtremePoints(pInstance, leftMost, rightMost);
+    const median = getMedianOfMedians(points.value);
+    drawVerticalLineThroughMedian(pInstance, median.value)
+
+    // Draw vertical line passing through the median
+    drawVerticalLineThroughMedian(pInstance, median);
+  } else if (clicked.value == 3) {
+    pInstance.background(220);
+    for (const pt of points.value) {
+      pInstance.stroke(0);
+      pInstance.strokeWeight(1.5);
+      pInstance.point(pt.x, pt.y);
+    }
+    const [xmin, xmax] = highlightExtremePoints(pInstance, leftMost, rightMost);
+    const median = getMedianOfMedians(points.value, pInstance);
+
+    const upperBridgePoints = findUpperBridge(points.value, median);
+
+    // Draw the upper bridge line using p5.js line function
+    pInstance.strokeWeight(2);
+    pInstance.stroke(0, 255, 0); // Green color
+    console.log(upperBridgePoints);
+    pInstance.line(upperBridgePoints[0].x, upperBridgePoints[0].y, upperBridgePoints[1].x, upperBridgePoints[1].y);
   }
   
 };
@@ -78,7 +111,7 @@ watch(() => props.numPoints, () => {
 .canvas-container {
   width: 475px;
   height: 340px;
-  border-radius: 20px;
+  border-radius: 5px;
   overflow: hidden;
 }
 </style>

@@ -184,9 +184,6 @@ export function findUpperBridge(S, a) {
         }
     }
 
-    console.log(MAX)
-    return [1,2];
-
     // Find the point with minimum x-coordinate in MAX
     let pk = MAX.reduce((minPoint, point) => (point.x < minPoint.x) ? point : minPoint, MAX[0]);
     // Find the point with maximum x-coordinate in MAX

@@ -1,16 +1,16 @@
 <template>
     <div class="rangebar">
-      <input type="range" :step="step" min="1" max="1000" v-model="selectedValue" class="slider" />
-      <input type="number" min="1" max="1000" v-model.number="selectedValue" class="number-input" />
+      <input type="range" :step="step" min="1" max="200" v-model="selectedValue" class="slider" />
+      <input type="number" min="1" max="200" v-model.number="selectedValue" class="number-input" />
     </div>
   </template>
   
 <script setup>
 import { ref, watch, defineEmits } from 'vue';
 
-const stopPoints = [1, 10, 100, 1000];
+const stopPoints = [1, 5, 50, 200];
 const step = stopPoints[1] - stopPoints[0];
-const selectedValue = ref(10);
+const selectedValue = ref(15);
 const numPoints = ref(1);
 const emit = defineEmits(['updatePoints']);
 
@@ -21,8 +21,8 @@ watch(selectedValue, (newVal) => {
 });
 
 watch(selectedValue, (newVal) => {
-  if (newVal > 1000) {
-    selectedValue.value = 1000;
+  if (newVal > 200) {
+    selectedValue.value = 200;
   }
 });
 </script>

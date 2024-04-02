@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Generates a specified number of random points within an ellipse.
  * The points are generated such that no two points are too close to each other.
  * 
@@ -13,7 +41,7 @@ export function generateRandomPoints(numPoints, pInstance) {
     const radiusY = pInstance.height / 5;
     const centerX = pInstance.width / 2;
     const centerY = pInstance.height / 2;
-    for (let i = 0; i < numPoints; i++) {
+    for (let i = 0; i &lt; numPoints; i++) {
         let x, y, cellKey;
         do {
             const angle = Math.random() * 2 * Math.PI + (Math.random() - 0.5) * 1.0;
@@ -34,18 +62,18 @@ export function generateRandomPoints(numPoints, pInstance) {
  * Gets the extreme points (leftmost and rightmost) from a set of points.
  * In case of a tie in x-coordinates, the point with the higher y-coordinate is chosen.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
  * @returns {{leftMost: {x: number, y: number}, rightMost: {x: number, y: number}}} An object containing the leftmost and rightmost points.
  */
 export function getExtremePointsUpper(points) {
     let leftMost = points[0];
     let rightMost = points[0];
 
-    for (let i = 1; i < points.length; i++) {
-        if (points[i].x < leftMost.x || (points[i].x === leftMost.x && points[i].y > leftMost.y)) {
+    for (let i = 1; i &lt; points.length; i++) {
+        if (points[i].x &lt; leftMost.x || (points[i].x === leftMost.x &amp;&amp; points[i].y > leftMost.y)) {
             leftMost = points[i];
         }
-        if (points[i].x > rightMost.x || (points[i].x === rightMost.x && points[i].y > rightMost.y)) {
+        if (points[i].x > rightMost.x || (points[i].x === rightMost.x &amp;&amp; points[i].y > rightMost.y)) {
             rightMost = points[i];
         }
     }
@@ -57,18 +85,18 @@ export function getExtremePointsUpper(points) {
  * Gets the extreme points (leftmost and rightmost) from a set of points.
  * In case of a tie in x-coordinates, the point with the lower y-coordinate is chosen.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
  * @returns {{leftMost: {x: number, y: number}, rightMost: {x: number, y: number}}} An object containing the leftmost and rightmost points.
  */
 export function getExtremePointsLower(points) {
     let leftMost = points[0];
     let rightMost = points[0];
 
-    for (let i = 1; i < points.length; i++) {
-        if (points[i].x < leftMost.x || (points[i].x === leftMost.x && points[i].y < leftMost.y)) {
+    for (let i = 1; i &lt; points.length; i++) {
+        if (points[i].x &lt; leftMost.x || (points[i].x === leftMost.x &amp;&amp; points[i].y &lt; leftMost.y)) {
             leftMost = points[i];
         }
-        if (points[i].x > rightMost.x || (points[i].x === rightMost.x && points[i].y < rightMost.y)) {
+        if (points[i].x > rightMost.x || (points[i].x === rightMost.x &amp;&amp; points[i].y &lt; rightMost.y)) {
             rightMost = points[i];
         }
     }
@@ -83,7 +111,7 @@ export function getExtremePointsLower(points) {
  * @param {p5} p - The p5 instance to use for drawing.
  * @param {{x: number, y: number}} leftMost - A point object with 'x' and 'y' properties, initially considered as the leftmost point.
  * @param {{x: number, y: number}} rightMost - A point object with 'x' and 'y' properties, initially considered as the rightmost point.
- * @returns {Array<{x: number, y: number}>} An array containing the leftmost and rightmost points.
+ * @returns {Array&lt;{x: number, y: number}>} An array containing the leftmost and rightmost points.
  */
 export function highlightExtremePoints(p, leftMost, rightMost) {
     // Determine the extreme points based on least x and y coordinates
@@ -114,7 +142,7 @@ export function highlightExtremePoints(p, leftMost, rightMost) {
 /**
  * Gets the median of the x-coordinates of a set of points using the Quickselect algorithm.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
  * @returns {number} The median of the x-coordinates.
  */
 export function getMedianOfMedians(points) {
@@ -142,8 +170,8 @@ function quickselect(arr, k) {
     const right = [];
     const equals = [];
 
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] < pivot) {
+    for (let i = 0; i &lt; arr.length; i++) {
+        if (arr[i] &lt; pivot) {
             left.push(arr[i]);
         } else if (arr[i] > pivot) {
             right.push(arr[i]);
@@ -152,9 +180,9 @@ function quickselect(arr, k) {
         }
     }
 
-    if (k < left.length) {
+    if (k &lt; left.length) {
         return quickselect(left, k);
-    } else if (k < left.length + equals.length) {
+    } else if (k &lt; left.length + equals.length) {
         return pivot;
     } else {
         return quickselect(right, k - left.length - equals.length);
@@ -174,24 +202,24 @@ export function drawVerticalLineThroughMedian(p, median) {
  * Finds the lower bridge of a set of points S with respect to a vertical line at x-coordinate a.
  * The lower bridge is the line segment connecting the lowest points on the left and right of the vertical line.
  * 
- * @param {Array<{x: number, y: number}>} S - An array of point objects with 'x' and 'y' properties.
+ * @param {Array&lt;{x: number, y: number}>} S - An array of point objects with 'x' and 'y' properties.
  * @param {number} a - The x-coordinate of the vertical line.
  * @param {number} [epsilon=0.001] - A small number used for floating point comparison.
- * @returns {Array<{x: number, y: number}>} An array containing the two points that form the lower bridge.
+ * @returns {Array&lt;{x: number, y: number}>} An array containing the two points that form the lower bridge.
  */
 export function findLowerBridge(S, a, epsilon=0.001) {
     let candidates = [];
 
     // Base case: If S has only two points, return the points sorted by x-coordinate
     if (S.length === 2) {
-        return (S[0].x <= S[1].x) ? [S[0], S[1]] : [S[1], S[0]];
+        return (S[0].x &lt;= S[1].x) ? [S[0], S[1]] : [S[1], S[0]];
     }
 
     // Step 2: Create pairs of points and insert any remaining point into candidates
     let pairs = [];
-    for (let i = 0; i < S.length; i += 2) {
-        if (i + 1 < S.length) {
-            if (S[i].x <= S[i + 1].x) {
+    for (let i = 0; i &lt; S.length; i += 2) {
+        if (i + 1 &lt; S.length) {
+            if (S[i].x &lt;= S[i + 1].x) {
                 pairs.push([S[i], S[i + 1]]);
             } else {
                 pairs.push([S[i + 1], S[i]]);
@@ -220,7 +248,7 @@ export function findLowerBridge(S, a, epsilon=0.001) {
     }
 
     // Remove pairs marked for removal
-    pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] && p[1] === pair[1]));
+    pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] &amp;&amp; p[1] === pair[1]));
 
     // Step 4: Determine the median of slopes
     let k = median(slopes);
@@ -228,10 +256,10 @@ export function findLowerBridge(S, a, epsilon=0.001) {
     // Step 5: Partition pairs into SMALL, EQUAL, and LARGE sets based on slope
     let SMALL = [], EQUAL = [], LARGE = [];
 
-    for (let i = 0; i < slopes.length; i++) {
-        if (Math.abs(slopes[i] - k) < epsilon) {
+    for (let i = 0; i &lt; slopes.length; i++) {
+        if (Math.abs(slopes[i] - k) &lt; epsilon) {
             EQUAL.push(pairs[i]);
-        } else if (slopes[i] < k - epsilon) {
+        } else if (slopes[i] &lt; k - epsilon) {
             SMALL.push(pairs[i]);
         } else if (slopes[i] > k + epsilon) {
             LARGE.push(pairs[i]);
@@ -254,19 +282,19 @@ export function findLowerBridge(S, a, epsilon=0.001) {
     }
 
     // Find the point with minimum x-coordinate in MAX
-    let pk = MAX.reduce((minPoint, point) => (point.x < minPoint.x) ? point : minPoint, MAX[0]);
+    let pk = MAX.reduce((minPoint, point) => (point.x &lt; minPoint.x) ? point : minPoint, MAX[0]);
     // Find the point with maximum x-coordinate in MAX
     let pm = MAX.reduce((maxPoint, point) => (point.x > maxPoint.x) ? point : maxPoint, MAX[0]);
 
 
     // Step 7: Check if the bridge lies on the supporting line
-    if (pk.x <= a && pm.x > a) {
+    if (pk.x &lt;= a &amp;&amp; pm.x > a) {
         console.log("hi")
         return [pk, pm];
     }
 
     // Step 8: Determine candidates based on the position of the vertical line
-    if (pm.x <= a) {
+    if (pm.x &lt;= a) {
         for (const [_, p2] of LARGE.concat(EQUAL)) {
             candidates.push(p2);
         }
@@ -294,8 +322,8 @@ export function findLowerBridge(S, a, epsilon=0.001) {
  * 
  * @param {{x: number, y: number}} k - The leftmost point of the lower hull.
  * @param {{x: number, y: number}} m - The rightmost point of the lower hull.
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
- * @returns {Array<Array<{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the lower hull.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @returns {Array&lt;Array&lt;{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the lower hull.
  */
 function connectLower(k, m, points) {
     let a = getMedianOfMedians(points);
@@ -307,7 +335,7 @@ function connectLower(k, m, points) {
     let points_right = [];
 
     for (const point of points) {
-        if (point.x < p.x) {
+        if (point.x &lt; p.x) {
             points_left.push(point);
         } else if (point.x > q.x) {
             points_right.push(point);
@@ -331,8 +359,8 @@ function connectLower(k, m, points) {
 /**
  * Computes the lower hull of a set of points using the divide and conquer approach.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
- * @returns {Array<Array<{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the lower hull.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @returns {Array&lt;Array&lt;{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the lower hull.
  */
 export function lowerHull(points) {
     let {leftMost: p_min, rightMost: p_max} = getExtremePointsUpper(points)
@@ -346,7 +374,7 @@ export function lowerHull(points) {
     T.push(p_min)
 
     for (const point of points) {
-        if (p_min.x < point.x && point.x < p_max.x) {
+        if (p_min.x &lt; point.x &amp;&amp; point.x &lt; p_max.x) {
             T.push(point)
         }
     }
@@ -361,7 +389,7 @@ function median(arr, tolerance = 1e-6) {
     const n = arr.length;
     const k = Math.floor(n / 2);
 
-    if (n <= 5) {
+    if (n &lt;= 5) {
         arr.sort((a, b) => a - b);
         return arr[k];
     }
@@ -370,13 +398,13 @@ function median(arr, tolerance = 1e-6) {
     const pivot = arr[Math.floor(Math.random() * n)];
 
     // Partition the array into two sub-arrays
-    const left = arr.filter(num => num < pivot - tolerance);
+    const left = arr.filter(num => num &lt; pivot - tolerance);
     const right = arr.filter(num => num > pivot + tolerance);
-    const equals = arr.filter(num => Math.abs(num - pivot) <= tolerance);
+    const equals = arr.filter(num => Math.abs(num - pivot) &lt;= tolerance);
 
-    if (k < left.length) {
+    if (k &lt; left.length) {
         return median(left, tolerance);
-    } else if (k < left.length + equals.length) {
+    } else if (k &lt; left.length + equals.length) {
         return pivot;
     } else {
         return median(right, tolerance);
@@ -388,8 +416,8 @@ function median(arr, tolerance = 1e-6) {
  * 
  * @param {{x: number, y: number}} k - The leftmost point of the upper hull.
  * @param {{x: number, y: number}} m - The rightmost point of the upper hull.
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
- * @returns {Array<Array<{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the upper hull.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @returns {Array&lt;Array&lt;{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the upper hull.
  */
 function connectUpper(k, m, points) {
     let a = getMedianOfMedians(points);
@@ -401,7 +429,7 @@ function connectUpper(k, m, points) {
     let points_right = [];
 
     for (const point of points) {
-        if (point.x < p.x) {
+        if (point.x &lt; p.x) {
             points_left.push(point);
         } else if (point.x > q.x) {
             points_right.push(point);
@@ -425,8 +453,8 @@ function connectUpper(k, m, points) {
 /**
  * Computes the upper hull of a set of points using the divide and conquer approach.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
- * @returns {Array<Array<{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the upper hull.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @returns {Array&lt;Array&lt;{x: number, y: number}>>} An array of arrays, each containing two points that form a line segment of the upper hull.
  */
 export function upperHull(points) {
     let {leftMost: p_min, rightMost: p_max} = getExtremePointsLower(points)
@@ -440,7 +468,7 @@ export function upperHull(points) {
     T.push(p_min)
 
     for (const point of points) {
-        if (p_min.x < point.x && point.x < p_max.x) {
+        if (p_min.x &lt; point.x &amp;&amp; point.x &lt; p_max.x) {
             T.push(point)
         }
     }
@@ -454,24 +482,24 @@ export function upperHull(points) {
  * Finds the upper bridge of a set of points S with respect to a vertical line at x-coordinate a.
  * The upper bridge is the line segment connecting the highest points on the left and right of the vertical line.
  * 
- * @param {Array<{x: number, y: number}>} S - An array of point objects with 'x' and 'y' properties.
+ * @param {Array&lt;{x: number, y: number}>} S - An array of point objects with 'x' and 'y' properties.
  * @param {number} a - The x-coordinate of the vertical line.
  * @param {number} [epsilon=0.001] - A small number used for floating point comparison.
- * @returns {Array<{x: number, y: number}>} An array containing the two points that form the upper bridge.
+ * @returns {Array&lt;{x: number, y: number}>} An array containing the two points that form the upper bridge.
  */
 export function findUpperBridge(S, a, epsilon=0.001) {
     let candidates = [];
 
     // Base case: If S has only two points, return the points sorted by x-coordinate
     if (S.length === 2) {
-        return (S[0].x <= S[1].x) ? [S[0], S[1]] : [S[1], S[0]];
+        return (S[0].x &lt;= S[1].x) ? [S[0], S[1]] : [S[1], S[0]];
     }
 
     // Step 2: Create pairs of points and insert any remaining point into candidates
     let pairs = [];
-    for (let i = 0; i < S.length; i += 2) {
-        if (i + 1 < S.length) {
-            if (S[i].x <= S[i + 1].x) {
+    for (let i = 0; i &lt; S.length; i += 2) {
+        if (i + 1 &lt; S.length) {
+            if (S[i].x &lt;= S[i + 1].x) {
                 pairs.push([S[i], S[i + 1]]);
             } else {
                 pairs.push([S[i + 1], S[i]]);
@@ -500,7 +528,7 @@ export function findUpperBridge(S, a, epsilon=0.001) {
     }
 
     // Remove pairs marked for removal
-    pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] && p[1] === pair[1]));
+    pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] &amp;&amp; p[1] === pair[1]));
 
     // Step 4: Determine the median of slopes
     let k = median(slopes);
@@ -508,10 +536,10 @@ export function findUpperBridge(S, a, epsilon=0.001) {
     // Step 5: Partition pairs into SMALL, EQUAL, and LARGE sets based on slope
     let SMALL = [], EQUAL = [], LARGE = [];
 
-    for (let i = 0; i < slopes.length; i++) {
-        if (Math.abs(slopes[i] - k) < epsilon) {
+    for (let i = 0; i &lt; slopes.length; i++) {
+        if (Math.abs(slopes[i] - k) &lt; epsilon) {
             EQUAL.push(pairs[i]);
-        } else if (slopes[i] < k - epsilon) {
+        } else if (slopes[i] &lt; k - epsilon) {
             SMALL.push(pairs[i]);
         } else if (slopes[i] > k + epsilon) {
             LARGE.push(pairs[i]);
@@ -534,19 +562,19 @@ export function findUpperBridge(S, a, epsilon=0.001) {
     }
 
     // Find the point with minimum x-coordinate in MAX
-    let pk = MAX.reduce((minPoint, point) => (point.x < minPoint.x) ? point : minPoint, MAX[0]);
+    let pk = MAX.reduce((minPoint, point) => (point.x &lt; minPoint.x) ? point : minPoint, MAX[0]);
     // Find the point with maximum x-coordinate in MAX
     let pm = MAX.reduce((maxPoint, point) => (point.x > maxPoint.x) ? point : maxPoint, MAX[0]);
 
 
     // Step 7: Check if the bridge lies on the supporting line
-    if (pk.x <= a && pm.x > a) {
+    if (pk.x &lt;= a &amp;&amp; pm.x > a) {
         console.log("hi")
         return [pk, pm];
     }
 
     // Step 8: Determine candidates based on the position of the vertical line
-    if (pm.x <= a) {
+    if (pm.x &lt;= a) {
         for (const [_, p2] of LARGE.concat(EQUAL)) {
             candidates.push(p2);
         }
@@ -586,18 +614,18 @@ export function polarAngle(a, b, c) {
 /**
  * Generates the convex hull of a set of points using the Gift Wrapping algorithm.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
- * @yields {Array<{x: number, y: number}>} An array of points that form the convex hull.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @yields {Array&lt;{x: number, y: number}>} An array of points that form the convex hull.
  */
 export function* convexHull(points) {
-    if (points.length < 3) return points;
+    if (points.length &lt; 3) return points;
 
     let hull = [];
     let tmp;
 
     // Find leftmost point
     tmp = points[0];
-    for (const p of points) if (p.x < tmp.x) tmp = p;
+    for (const p of points) if (p.x &lt; tmp.x) tmp = p;
 
     hull[0] = tmp;
 
@@ -612,7 +640,7 @@ export function* convexHull(points) {
         for (const p of points) {
             tmp = polarAngle(secondlast, endpoint, p);
 
-            if (tmp <= min_angle) {
+            if (tmp &lt;= min_angle) {
                 new_end = p;
                 min_angle = tmp;
             }
@@ -631,7 +659,7 @@ export function* convexHull(points) {
 /**
  * Draws the Jarvis March Convex Hull of a set of points.
  * 
- * @param {Array<{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
+ * @param {Array&lt;{x: number, y: number}>} points - An array of point objects with 'x' and 'y' properties.
  * @param {p5} pInstance - An instance of the p5.js library.
  * @param {boolean} [finalHull=false] - A boolean indicating whether to draw the final hull.
  */
@@ -640,7 +668,7 @@ export function drawJVHull(points, pInstance, finalHull = false) {
     let n = points.length;
     
     // If there are less than 3 points, convex hull is not possible
-    if (n < 3) return;
+    if (n &lt; 3) return;
 
     // Calculate the convex hull
     let hullGenerator = convexHull(points);
@@ -652,7 +680,7 @@ export function drawJVHull(points, pInstance, finalHull = false) {
         let result = hullGenerator.next();
         if (!result.done) {
             let hull = result.value;
-            for (let i = 0; i < hull.length - 1; i++) {
+            for (let i = 0; i &lt; hull.length - 1; i++) {
                 pInstance.line(hull[i].x, hull[i].y, hull[i + 1].x, hull[i + 1].y);
             }
             // Draw the line from the last point to the first point
@@ -662,7 +690,7 @@ export function drawJVHull(points, pInstance, finalHull = false) {
             if (finalHull) { // If it's the final hull, draw it in black
                 pInstance.strokeWeight(2);
                 pInstance.stroke(0);
-                for (let i = 0; i < points.length - 1; i++) {
+                for (let i = 0; i &lt; points.length - 1; i++) {
                     pInstance.line(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
                 }
                 // Draw the line from the last point to the first point
@@ -670,4 +698,26 @@ export function drawJVHull(points, pInstance, finalHull = false) {
             }
         }
     }, 200); // 200 ms delay
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#connectLower">connectLower</a></li><li><a href="global.html#connectUpper">connectUpper</a></li><li><a href="global.html#convexHull">convexHull</a></li><li><a href="global.html#drawJVHull">drawJVHull</a></li><li><a href="global.html#findLowerBridge">findLowerBridge</a></li><li><a href="global.html#findUpperBridge">findUpperBridge</a></li><li><a href="global.html#generateRandomPoints">generateRandomPoints</a></li><li><a href="global.html#getExtremePointsLower">getExtremePointsLower</a></li><li><a href="global.html#getExtremePointsUpper">getExtremePointsUpper</a></li><li><a href="global.html#getMedianOfMedians">getMedianOfMedians</a></li><li><a href="global.html#highlightExtremePoints">highlightExtremePoints</a></li><li><a href="global.html#lowerHull">lowerHull</a></li><li><a href="global.html#polarAngle">polarAngle</a></li><li><a href="global.html#quickselect">quickselect</a></li><li><a href="global.html#upperHull">upperHull</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Apr 02 2024 22:11:40 GMT+0530 (India Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -5,7 +5,7 @@
       <div class="modal-content">
         <button id="cross" @click="showModal = false">x</button>
         <div class="canvas-container">
-          <Canvas :numPoints="numPoints" ref="canvasRef" @updatePoints="updateNumPoints" />
+          <jvCanvas :numPoints="numPoints" ref="canvasRef" @updatePoints="updateNumPoints" />
         </div>
         <RangeBar class="rangebar" :numPoints="numPoints" @updatePoints="updateNumPoints" />
       </div>
@@ -15,7 +15,7 @@
 
 <script setup>
 import { ref } from "vue";
-import Canvas from './Canvas.vue';
+import jvCanvas from './jvCanvas.vue';
 import Carousel from './Carousel.vue';
 import RangeBar from './RangeBar.vue';
 import jvSlide1 from '../assets/jv-slide-1.png';

@@ -5,7 +5,7 @@
       <div class="modal-content">
         <button id="cross" @click="showModal = false">x</button>
         <div class="canvas-container">
-          <Canvas :numPoints.number="numPoints" ref="canvasRef" @updatePoints="updateNumPoints" />
+          <kpsCanvas :numPoints.number="numPoints" ref="canvasRef" @updatePoints="updateNumPoints" />
         </div>
         <RangeBar class="rangebar" :numPoints.number="numPoints" @updatePoints="updateNumPoints" />
       </div>
@@ -15,7 +15,7 @@
 
 <script setup>
 import { ref } from "vue";
-import Canvas from './Canvas.vue';
+import kpsCanvas from './kpsCanvas.vue';
 import Carousel from './Carousel.vue';
 import RangeBar from './RangeBar.vue';
 import kpsSlide1 from '../assets/kps-slide-1.png';

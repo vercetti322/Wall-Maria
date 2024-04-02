@@ -8,46 +8,46 @@ export function generateRandomPoints(numPoints, pInstance) {
     const centerX = pInstance.width / 2;
     const centerY = pInstance.height / 2;
     for (let i = 0; i < numPoints; i++) {
-      const angle = Math.random() * 2 * Math.PI + (Math.random() - 0.5) * 1.0;
-      const r = Math.sqrt(Math.random()) + (Math.random() - 0.5) * 1.0;
-      const x = centerX + r * radiusX * Math.cos(angle);
-      const y = centerY + r * radiusY * Math.sin(angle);
-      points.push(pInstance.createVector(x, y));
+        const angle = Math.random() * 2 * Math.PI + (Math.random() - 0.5) * 1.0;
+        const r = Math.sqrt(Math.random()) + (Math.random() - 0.5) * 1.0;
+        const x = centerX + r * radiusX * Math.cos(angle);
+        const y = centerY + r * radiusY * Math.sin(angle);
+        points.push(pInstance.createVector(x, y));
     }
     return points;
-  }
-  
-  // Function to get extreme points with respect to x-coordinates
-  export function getExtremePoints(points) {
+}
+
+// Function to get extreme points with respect to x-coordinates
+export function getExtremePoints(points) {
     let leftMost = points[0];
     let rightMost = points[0];
-  
+
     for (let i = 1; i < points.length; i++) {
-      if (points[i].x < leftMost.x) {
-        leftMost = points[i];
-      }
-      if (points[i].x > rightMost.x) {
-        rightMost = points[i];
-      }
+        if (points[i].x < leftMost.x) {
+            leftMost = points[i];
+        }
+        if (points[i].x > rightMost.x) {
+            rightMost = points[i];
+        }
     }
-  
+
     return { leftMost, rightMost };
-  }
-  
-  export function highlightExtremePoints(p, leftMost, rightMost) {
+}
+
+export function highlightExtremePoints(p, leftMost, rightMost) {
     // Determine the extreme points based on least x and y coordinates
     let extremePoint1 = leftMost;
     let extremePoint2 = rightMost;
-  
+
     // If the x coordinates are the same, choose the point with higher y coordinate
     if (leftMost.x === rightMost.x) {
-      if (leftMost.y > rightMost.y) {
-        extremePoint1 = rightMost;
-        extremePoint2 = leftMost;
-      }
+        if (leftMost.y > rightMost.y) {
+            extremePoint1 = rightMost;
+            extremePoint2 = leftMost;
+        }
     } else if (leftMost.x > rightMost.x) {
-      // Swap extreme points if necessary to ensure the leftmost point is first
-      [extremePoint1, extremePoint2] = [rightMost, leftMost];
+        // Swap extreme points if necessary to ensure the leftmost point is first
+        [extremePoint1, extremePoint2] = [rightMost, leftMost];
     }
 
     // Highlight extreme points
@@ -63,7 +63,7 @@ export function generateRandomPoints(numPoints, pInstance) {
 export function getMedianOfMedians(points) {
     const n = points.length;
     const xCoordinates = points.map(point => point.x); // Extract x-coordinates
-    
+
     // Use quickselect to find the median of x-coordinates
     const medianIndex = Math.floor(n / 2);
     const medianX = quickselect(xCoordinates, medianIndex);
@@ -77,7 +77,7 @@ function quickselect(arr, k) {
     const left = [];
     const right = [];
     const equals = [];
-    
+
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] < pivot) {
             left.push(arr[i]);
@@ -87,7 +87,7 @@ function quickselect(arr, k) {
             equals.push(arr[i]);
         }
     }
-    
+
     if (k < left.length) {
         return quickselect(left, k);
     } else if (k < left.length + equals.length) {
@@ -100,27 +100,26 @@ function quickselect(arr, k) {
 export function drawVerticalLineThroughMedian(p, median) {
     const startY = p.height * 0.15; // Starting y-coordinate (10% from the top)
     const endY = p.height * 0.82;   // Ending y-coordinate (90% from the top)
-    
+
     p.strokeWeight(2);
     p.stroke(0, 0, 255); // Blue color
     p.line(median, startY, median, endY); // Line extends from startY to endY
 }
 
-
 // Function to find the upper bridge
 export function findUpperBridge(S, a) {
     let candidates = [];
-    
+
     // Base case: If S has only two points, return the points sorted by x-coordinate
     if (S.length === 2) {
         return (S[0].x <= S[1].x) ? [S[0], S[1]] : [S[1], S[0]];
     }
-    
+
     // Step 2: Create pairs of points and insert any remaining point into candidates
     let pairs = [];
     for (let i = 0; i < S.length; i += 2) {
         if (i + 1 < S.length) {
-            if (S[i].x < S[i + 1].x) {
+            if (S[i].x <= S[i + 1].x) {
                 pairs.push([S[i], S[i + 1]]);
             } else {
                 pairs.push([S[i + 1], S[i]]);
@@ -129,7 +128,7 @@ export function findUpperBridge(S, a) {
             candidates.push(S[i]);
         }
     }
-    
+
     // Step 3: Determine slopes of lines defined by pairs and handle points with same x-coordinate
     let slopes = [];
     let pairsToRemove = []; // New array to store pairs to be removed
@@ -148,36 +147,38 @@ export function findUpperBridge(S, a) {
         }
     }
 
-    
+    if (pairs.length == 0) {
+        return findUpperBridge(candidates, a)
+    }
+
     // Remove pairs marked for removal
     pairs = pairs.filter(pair => !pairsToRemove.some(p => p[0] === pair[0] && p[1] === pair[1]));
-    
+
     // Step 4: Determine the median of slopes
     let k = median(slopes);
-    
+
     // Step 5: Partition pairs into SMALL, EQUAL, and LARGE sets based on slope
     let SMALL = [], EQUAL = [], LARGE = [];
-    const tolerance = 1e-10; // Adjust tolerance value as needed
 
     for (let i = 0; i < pairs.length; i++) {
-        if (Math.abs(slopes[i] - k) < tolerance) {
+        if (slopes[i] == k) {
             EQUAL.push(pairs[i]);
-        } else if (slopes[i] < k - tolerance) {
+        } else if (slopes[i] < k) {
             SMALL.push(pairs[i]);
-        } else if (slopes[i] > k + tolerance) {
+        } else if (slopes[i] > k) {
             LARGE.push(pairs[i]);
         }
     }
-    
+
     // Step 6: Find points on the supporting line with slope K
     let MAX = []; // Points on the supporting line
     let maxYK = -Infinity; // Initialize to negative infinity to handle all cases
     for (const point of S) {
         let yOnLine = point.y - k * point.x;
-        if (Math.abs(yOnLine - maxYK) < tolerance) {
+        if (yOnLine == maxYK) {
             // If the current y-coordinate on the line is within the tolerance range of the maximum y-coordinate, add the point to MAX
             MAX.push(point);
-        } else if (yOnLine > maxYK + tolerance) {
+        } else if (yOnLine > maxYK) {
             // If the current y-coordinate on the line is greater than the maximum y-coordinate by more than the tolerance, update MAX
             MAX = [point];
             maxYK = yOnLine; // Update the maximum y-coordinate
@@ -188,23 +189,25 @@ export function findUpperBridge(S, a) {
     let pk = MAX.reduce((minPoint, point) => (point.x < minPoint.x) ? point : minPoint, MAX[0]);
     // Find the point with maximum x-coordinate in MAX
     let pm = MAX.reduce((maxPoint, point) => (point.x > maxPoint.x) ? point : maxPoint, MAX[0]);
-    
+
+
     // Step 7: Check if the bridge lies on the supporting line
-    if (pk.x <= a + tolerance && pm.x >= a - tolerance) {
+    if (pk.x <= a && pm.x > a) {
+        console.log("hi")
         return [pk, pm];
     }
-    
+
     // Step 8: Determine candidates based on the position of the vertical line
-    if (pm.x <= a - tolerance) {
-        for (const [p1, p2] of LARGE.concat(EQUAL)) {
+    if (pm.x <= a) {
+        for (const [_, p2] of LARGE.concat(EQUAL)) {
             candidates.push(p2);
         }
         for (const [p1, p2] of SMALL) {
             candidates.push(p1);
             candidates.push(p2);
         }
-    } else if (pk.x >= a + tolerance) {
-        for (const [p1, p2] of SMALL.concat(EQUAL)) {
+    } else if (pk.x > a) {
+        for (const [p1, _] of SMALL.concat(EQUAL)) {
             candidates.push(p1);
         }
         for (const [p1, p2] of LARGE) {
@@ -212,10 +215,43 @@ export function findUpperBridge(S, a) {
             candidates.push(p2);
         }
     }
-    
+
+
     // Step 9: Recur with candidates
     return findUpperBridge(candidates, a);
 }
+
+function connect(k, m, points) {
+    a = getMedianOfMedians(points)
+    [p, q] = findUpperBridge(points, a)
+
+    let points_left = []
+    let points_right = []
+
+    for (const point of S) {
+       if (point.x < p.x) {
+            points_left.push(point)
+        } else if (point.x > q.x) {
+            points_right.push(point)
+        }
+    }
+
+    points_left.push(p)
+    points_right.push(q)
+
+    if (p.x === k.x && p.y === k.y) {
+        // make that point bold
+    } else {
+        connect(k, p, points_left)
+    }
+
+    if (p.x === m.x && p.y === m.y) {
+        // make that point bold
+    } else {
+        connect(q, m, points_right)
+    }
+}
+
 
 
 // Function to find median of an array using Quick Select algorithm
@@ -232,18 +268,103 @@ function median(arr, tolerance = 1e-10) {
     const pivot = arr[Math.floor(Math.random() * n)];
 
     // Partition the array into two sub-arrays
-    const left = arr.filter(num => num < pivot);
-    const right = arr.filter(num => num > pivot);
-    const equals = arr.filter(num => num === pivot);
+    const left = arr.filter(num => num < pivot - tolerance);
+    const right = arr.filter(num => num > pivot + tolerance);
+    const equals = arr.filter(num => Math.abs(num - pivot) <= tolerance);
 
     if (k < left.length) {
-        // Recursively apply Quick Select to the left sub-array
         return median(left, tolerance);
     } else if (k < left.length + equals.length) {
-        // If the pivot index is the desired index, return the pivot element
         return pivot;
     } else {
-        // Recursively apply Quick Select to the right sub-array
         return median(right, tolerance);
     }
+}
+
+// Jarvis March Algorithm
+// Function to find the orientation of ordered triplet (p, q, r)
+// Function returns the following values:
+// 0 : Collinear points
+// 1 : Clockwise points
+// 2 : Counterclockwise
+export function polarAngle(a, b, c) {
+    let x = (a.x - b.x) * (c.x - b.x) + (a.y - b.y) * (c.y - b.y);
+    let y = (a.x - b.x) * (c.y - b.y) - (c.x - b.x) * (a.y - b.y);
+    return Math.atan2(y, x);
+}
+
+export function* convexHull(points) {
+    if (points.length < 3) return points;
+
+    let hull = [];
+    let tmp;
+
+    // Find leftmost point
+    tmp = points[0];
+    for (const p of points) if (p.x < tmp.x) tmp = p;
+
+    hull[0] = tmp;
+
+    let endpoint, secondlast;
+    let min_angle, new_end;
+
+    endpoint = hull[0];
+    secondlast = {x: endpoint.x, y: endpoint.y + 10};
+
+    do {
+        min_angle = Math.PI; // Initial value. Any angle must be lower that 2PI
+        for (const p of points) {
+            tmp = polarAngle(secondlast, endpoint, p);
+
+            if (tmp <= min_angle) {
+                new_end = p;
+                min_angle = tmp;
+            }
+        }
+
+        if (new_end != hull[0]) {
+            hull.push(new_end);
+            secondlast = endpoint;
+            endpoint = new_end;
+        }
+
+        yield hull; // Yield the intermediate hull
+    } while (new_end != hull[0]);
+}
+
+export function drawJVHull(points, pInstance, finalHull = false) {
+    // Number of points
+    let n = points.length;
+    
+    // If there are less than 3 points, convex hull is not possible
+    if (n < 3) return;
+
+    // Calculate the convex hull
+    let hullGenerator = convexHull(points);
+
+    // Draw the hull
+    pInstance.strokeWeight(1);
+    pInstance.stroke(200); // Grey color for internal lines
+    let intervalId = setInterval(() => {
+        let result = hullGenerator.next();
+        if (!result.done) {
+            let hull = result.value;
+            for (let i = 0; i < hull.length - 1; i++) {
+                pInstance.line(hull[i].x, hull[i].y, hull[i + 1].x, hull[i + 1].y);
+            }
+            // Draw the line from the last point to the first point
+            pInstance.line(hull[hull.length - 1].x, hull[hull.length - 1].y, hull[0].x, hull[0].y);
+        } else {
+            clearInterval(intervalId); // Clear the interval
+            if (finalHull) { // If it's the final hull, draw it in black
+                pInstance.strokeWeight(2);
+                pInstance.stroke(0);
+                for (let i = 0; i < points.length - 1; i++) {
+                    pInstance.line(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+                }
+                // Draw the line from the last point to the first point
+                pInstance.line(points[points.length - 1].x, points[points.length - 1].y, points[0].x, points[0].y);
+            }
+        }
+    }, 200); // 200 ms delay
 }

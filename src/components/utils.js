@@ -402,14 +402,14 @@ export function findUpperBridge(S, a, epsilon=0.001) {
     for (const [p1, p2] of pairs) {
         let slope;
         if (p1.x === p2.x) {
-            if (p1.y < p2.y) {
+            if (p1.y > p2.y) {
                 candidates.push(p1);
             } else {
                 candidates.push(p2);
             }
             pairsToRemove.push([p1, p2]);
         } else {
-            slope = (p1.y - p2.y) / (p1.x - p2.x);
+            slope = (p2.y - p1.y) / (p1.x - p2.x);
             slopes.push(slope);
         }
     }
@@ -435,13 +435,13 @@ export function findUpperBridge(S, a, epsilon=0.001) {
 
     // Step 6: Find points on the supporting line with slope K
     let MAX = []; // Points on the supporting line
-    let maxYK = Infinity; // Initialize to negative infinity to find maximum
+    let maxYK = -Infinity; // Initialize to negative infinity to find maximum
     for (const point of S) {
         let yOnLine = k * point.x - point.y;
         if (yOnLine == maxYK) {
             // If the current y-coordinate on the line is equal to the maximum y-coordinate, add the point to MAX
             MAX.push(point);
-        } else if (yOnLine < maxYK) { // If the current y-coordinate on the line is greater than the maximum y-coordinate
+        } else if (yOnLine > maxYK) { // If the current y-coordinate on the line is greater than the maximum y-coordinate
             // Update MAX and maxYK
             MAX = [point];
             maxYK = yOnLine;

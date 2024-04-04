@@ -1,29 +1,15 @@
 # wall-maria
 
-This template should help get you started developing with Vue 3 in Vite.
+This project deals with visualization of Convex hull using Kirkpatrick Sidel algorithm and Jarvis March Algorithm.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
+### Team Members
+1. Jatin Jindal (2021A7PS2951H)
+2. Alamuri Siri Chandana (2020B3A70854H)
+3. Aryan Khare (2020B1A71011H)
+4. Jubil NS (2020B3A70691H)
 
 ### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
 ```

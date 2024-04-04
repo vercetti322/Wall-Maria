@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparison of Convex Hull Algorithms</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+      }
+      h2 {
+        color: #34495e;
+        margin-top: 20px;
+      }
+      p {
+        color: #555;
+        line-height: 1.6;
+      }
+      ul {
+        color: #666;
+        list-style-type: disc;
+        margin-left: 20px;
+      }
+      .section {
+        margin-bottom: 40px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .images {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Comparison of Convex Hull Algorithms</h1>
+
+    <div class="section">
+      <h2>Introduction</h2>
+      <p>
+        This documentation aims to compare and analyze the implementation of the
+        Jarvis March and Kirkpatrick–Seidel algorithms for finding the convex
+        hull in two dimensions.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Algorithm Descriptions</h2>
+      <p>
+        <strong>Jarvis March Algorithm:</strong> The Jarvis March Algorithm,
+        also known as the Gift Wrapping Algorithm, is a method for computing the
+        convex hull of a set of points in the plane. It works by selecting the
+        point with the lowest y-coordinate and then iteratively selecting the
+        point with the next clockwise angle from the previous point until it
+        returns to the starting point.
+      </p>
+      <p>
+        <strong>Kirkpatrick–Seidel Algorithm:</strong> The Kirkpatrick–Seidel
+        Algorithm is an efficient method for computing the convex hull of a set
+        of points in the plane. It works by recursively partitioning the point
+        set into subsets, computing the convex hull of each subset, and then
+        merging the convex hulls to obtain the convex hull of the entire set.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Advantages and Disadvantages</h2>
+      <div>
+        <h3>Jarvis March Algorithm:</h3>
+        <ul>
+          <li>
+            <strong>Advantages:</strong>
+            <ul>
+              <li>Simple to implement</li>
+              <li>Works well for small or moderate-sized point sets</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Disadvantages:</strong>
+            <ul>
+              <li>Time complexity can be high for large point sets</li>
+              <li>
+                Not efficient for points in a nearly collinear configuration
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>Kirkpatrick–Seidel Algorithm:</h3>
+        <ul>
+          <li>
+            <strong>Advantages:</strong>
+            <ul>
+              <li>Efficient for large point sets</li>
+              <li>Optimal time complexity</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Disadvantages:</strong>
+            <ul>
+              <li>Complex implementation compared to Jarvis March</li>
+              <li>Requires additional space for recursive calls</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Complexity Analysis</h2>
+      <p><strong>Jarvis March Algorithm:</strong></p>
+      <ul>
+        <li>
+          Time Complexity: O(nh), where n is the number of points and h is the
+          number of points on the convex hull.
+        </li>
+        <li>
+          Space Complexity: O(h), where h is the number of points on the convex
+          hull.
+        </li>
+      </ul>
+      <p><strong>Kirkpatrick–Seidel Algorithm:</strong></p>
+      <ul>
+        <li>
+          Time Complexity: O(n log h), where n is the number of points and h is
+          the number of points on the convex hull.
+        </li>
+        <li>
+          Space Complexity: O(n), as the algorithm requires additional space for
+          recursive calls.
+        </li>
+      </ul>
+      <p>
+        The choice of algorithm can significantly impact performance, especially
+        for large problem sizes. Here's how the complexities may influence the
+        decision:
+      </p>
+      <ul>
+        <li>
+          <strong>Small Problem Sizes:</strong> For small sets of points, the
+          difference in time complexity may not be significant. In such cases,
+          the simplicity of implementation of the Jarvis March Algorithm might
+          make it preferable.
+        </li>
+        <li>
+          <strong>Large Problem Sizes:</strong> As the number of points
+          increases, the O(n log h) time complexity of the Kirkpatrick–Seidel
+          Algorithm may provide better performance compared to the O(nh) time
+          complexity of the Jarvis March Algorithm. Additionally, the space
+          complexity of the Kirkpatrick–Seidel Algorithm being O(n) could be
+          more manageable for large datasets.
+        </li>
+        <li>
+          <strong>Nearly Collinear Configurations:</strong> The Jarvis March
+          Algorithm performs poorly on sets of points that are nearly collinear
+          due to its time complexity being dependent on the number of points on
+          the convex hull. In such cases, the Kirkpatrick–Seidel Algorithm, with
+          its more efficient time complexity, may be a better choice.
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Overall Implementation Overview:</h2>
+      <div class="sub-section">
+        <h3>Kirkpatrick–Seidel Algorithm:</h3>
+        <p>
+          The provided code implements the Kirkpatrick–Seidel Algorithm (KPS)
+          for finding the convex hull of a set of points in the plane. Here's an
+          overview of the implementation:
+        </p>
+        <h4>getExtremePointsUpper Function:</h4>
+        <ul>
+          <li>
+            This function determines the extreme points with respect to
+            x-coordinates for the upper hull computation.
+          </li>
+          <li>
+            It iterates through the points to find the leftmost and rightmost
+            points.
+          </li>
+          <li>
+            Returns the leftmost and rightmost points as the extreme points.
+          </li>
+        </ul>
+
+        <h4>getExtremePointsLower Function:</h4>
+        <ul>
+          <li>
+            Similar to getExtremePointsUpper, but for the lower hull
+            computation.
+          </li>
+          <li>
+            Determines the extreme points with respect to x-coordinates for the
+            lower hull.
+          </li>
+          <li>
+            Returns the leftmost and rightmost points as the extreme points.
+          </li>
+        </ul>
+
+        <h4>highlightExtremePoints Function:</h4>
+        <ul>
+          <li>Highlights the extreme points on the canvas.</li>
+          <li>
+            Determines the extreme points based on their x and y coordinates.
+          </li>
+          <li>
+            Draws points with increased weight and a red color to indicate
+            extreme points.
+          </li>
+        </ul>
+
+        <h4>getMedianOfMedians Function:</h4>
+        <ul>
+          <li>
+            Computes the median of x-coordinates using the Quickselect
+            algorithm.
+          </li>
+          <li>
+            Divides the array of x-coordinates recursively until the median is
+            found.
+          </li>
+        </ul>
+
+        <h4>quickselect Function:</h4>
+        <ul>
+          <li>
+            Implements the Quickselect algorithm to find the kth smallest
+            element in an array.
+          </li>
+          <li>
+            Partitions the array based on a randomly selected pivot element.
+          </li>
+          <li>
+            Recursively selects the sub-array containing the kth smallest
+            element.
+          </li>
+        </ul>
+
+        <h4>drawVerticalLineThroughMedian Function:</h4>
+        <ul>
+          <li>Draws a vertical line through the median of x-coordinates.</li>
+          <li>Uses a blue color to indicate the line on the canvas.</li>
+        </ul>
+
+        <h4>findLowerBridge Function:</h4>
+        <ul>
+          <li>Finds the lower bridge of the convex hull.</li>
+          <li>
+            Recursively divides the point set and determines the bridge using
+            median slopes.
+          </li>
+          <li>
+            Handles cases where points lie on the same line or have the same
+            x-coordinate.
+          </li>
+        </ul>
+
+        <h4>connectLower Function:</h4>
+        <ul>
+          <li>Connects the lower bridge points recursively.</li>
+          <li>
+            Finds the extreme points and divides the point set into left and
+            right subsets.
+          </li>
+          <li>
+            Recursively connects the subsets until the bridge points are
+            reached.
+          </li>
+        </ul>
+
+        <h4>lowerHull Function:</h4>
+        <ul>
+          <li>Computes the lower hull of the point set.</li>
+          <li>Determines the extreme points for the lower hull.</li>
+          <li>Connects the lower bridge points to form the lower hull.</li>
+        </ul>
+
+        <h4>findUpperBridge Function:</h4>
+        <ul>
+          <li>Finds the upper bridge of the convex hull.</li>
+          <li>
+            Similar to findLowerBridge, but for the upper hull computation.
+          </li>
+          <li>
+            Recursively divides the point set and determines the bridge using
+            median slopes.
+          </li>
+        </ul>
+
+        <h4>Conclusion:</h4>
+        <p>
+          The provided implementation offers a comprehensive solution for
+          computing the convex hull using the Kirkpatrick–Seidel algorithm. By
+          recursively dividing the point set and efficiently determining the
+          bridge points, it constructs the convex hull with an \(O(n \log h)\)
+          time complexity. This implementation can be further optimized and
+          extended for various applications requiring convex hull computations.
+        </p>
+      </div>
+
+      <div class="sub-section">
+        <h3>Jarvis March Algorithm:</h3>
+        <p>
+          The provided code implements the Jarvis March Algorithm for finding
+          the convex hull of a set of points in the plane. Here's an overview of
+          the implementation:
+        </p>
+        <h4>polarAngle Function:</h4>
+        <ul>
+          <li>
+            This function calculates the polar angle between three points.
+          </li>
+          <li>
+            It computes the angle formed by the vectors (a -> b) and (b -> c)
+            using the dot product and cross product.
+          </li>
+          <li>
+            It returns the angle in radians using the Math.atan2 function.
+          </li>
+        </ul>
+        <h4>convexHull Generator Function:</h4>
+        <ul>
+          <li>
+            This generator function computes the convex hull of a set of points
+            using the Jarvis March Algorithm.
+          </li>
+          <li>
+            It initializes the hull array and finds the leftmost point to start
+            the hull construction.
+          </li>
+          <li>
+            It iterates through the points to find the next point with the
+            smallest polar angle relative to the current endpoint of the hull.
+          </li>
+          <li>
+            It updates the hull with each new point and yields the intermediate
+            hulls until the process completes.
+          </li>
+        </ul>
+        <h4>Conclusion:</h4>
+        <p>
+          The provided implementation offers a straightforward and efficient
+          solution for computing the convex hull using the Jarvis March
+          Algorithm. By iteratively selecting the next point with the smallest
+          polar angle, it constructs the convex hull incrementally. This
+          implementation can be further optimized for performance and extended
+          for various applications requiring convex hull computations.
+        </p>
+      </div>
+    </div>
+    <div class="images">
+      <img src="convexHullKPS.png" alt="KPS Convex Hull" style="width:500px;height:400px;">
+      <img src="convexHullJarvisMarch.png" alt="Jarvis March Convex Hull" style="width:500px;height:400px;">
+    </div>
+
+    <div class="section">
+      <h2>Performance Comparison</h2>
+      <p>
+        The performance of both algorithms was evaluated using various datasets,
+        including small and large point sets with different configurations.
+        Empirical results showed that:
+      </p>
+      <ul>
+        <li>
+          For small or moderately sized point sets, the Jarvis March Algorithm
+          performed reasonably well and provided simpler implementation.
+        </li>
+        <li>
+          For large point sets or datasets with nearly collinear configurations,
+          the Kirkpatrick–Seidel Algorithm demonstrated superior performance due
+          to its optimal time complexity and efficient handling of such cases.
+        </li>
+      </ul>
+      <p>
+        Overall, the choice of algorithm depends on the specific requirements of
+        the problem, including the size and characteristics of the input data,
+        as well as considerations regarding implementation complexity and
+        efficiency.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        In conclusion, both the Jarvis March and Kirkpatrick–Seidel algorithms
+        are effective methods for finding the convex hull in two dimensions.
+        While the Jarvis March Algorithm offers simplicity and ease of
+        implementation, the Kirkpatrick–Seidel Algorithm provides superior
+        performance, especially for large datasets and nearly collinear
+        configurations. The choice between the two algorithms depends on the
+        specific requirements and constraints of the problem.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>References</h2>
+      <ul>
+        <li>
+          Introduction to Algorithms by Thomas H. Cormen, Charles E. Leiserson,
+          Ronald L. Rivest, and Clifford Stein
+        </li>
+        <li>
+          Computational Geometry: Algorithms and Applications by Mark de Berg,
+          Otfried Cheong, Marc van Kreveld, and Mark Overmars
+        </li>
+        <li>Geometric Algorithms and Data Structures by J. S. B. Mitchell</li>
+        <li>https://en.wikipedia.org/wiki/Convex_hull_algorithms</li>
+      </ul>
+    </div>
+  </body>
+</html>
